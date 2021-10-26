@@ -1,31 +1,23 @@
-import React, {Component} from "react";
-import { Card, Col, Row } from "antd";
+import React from "react";
+import {Card, Button } from "antd";
 import 'antd/dist/antd.css';
-import './Card.css';
+import "./Card.css"
+import Cafe from "../images/coffe-image.jpg"
+import {ShoppingCartOutlined} from '@ant-design/icons';
 
 const { Meta } = Card;
-export default props => 
 
-                <div className="site-card-wrapper">
-                  <Row gutter={16}>
-                    <Col span={12}>
-                      <Card title="Card title" bordered={false}>
-                        Card content
-                      </Card>
-                    </Col>
-                    <Col span={12}>
-                      <Card 
-                      cover={
-                            <img
-                                alt="example"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                            />
-                        }>
-                            <Meta
-                                title="Card title"
-                                description="This is the description"
-                            />
-                      </Card>
-                    </Col>
-                  </Row>
-                </div>
+export default props =>
+<Card   cover={<img alt="example" src={Cafe}/>}  bodyStyle={{backgroundColor:'#121212'}}>
+    <Meta  title={props.name}  style={{co:'#FFF'}}/>
+    <div className='div-description'>
+        {props.description}
+    </div>
+    <div className='div-price'>
+        <div className='value'>
+            <span className='dot'></span>
+            <h3>R$ {props.price}</h3>
+        </div>
+        <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}} shape="round" icon={<ShoppingCartOutlined />} size={"middle"} />
+    </div>
+    </Card>

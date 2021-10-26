@@ -1,7 +1,7 @@
 body{
   width: 100vw;
   display: flex;
-  background-color:#F7FEFF ;
+  background-color:#ececec; 
   flex-direction: column;
 
 }

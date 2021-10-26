@@ -1,4 +1,64 @@
-.site-card-wrapper {
-    padding: 30px;
-    background: #ececec;
-  }
+.ant-card-meta-title{
+    color: #FFF !important;
+    font-size: 1.2rem;
+}
+  
+  
+.div-description{
+    font-size: 1rem;
+    text-align: center;
+    padding-top: 3%;
+    margin-top: 5%;
+    height: 90px;
+    background-color: #532B06;
+    color: #FFF;
+}
+  
+.div-price{
+    width: 100%;
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.div-price h3{
+    padding-top:3% ;
+    color: #FFF;
+    font-size:0.9rem;
+    padding-left: 5%;
+}
+  
+.value{
+    padding: 5%;
+    width: 40%;
+    display: flex;
+    
+}
+
+.dot{
+    padding: 10px;
+    height: 25px;
+    width: 25px;
+    background-color: #FFF;
+    border-radius: 50%;
+    background-image: url('/src/images/real.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:90%;
+}
+
+.ant-card-bordered .ant-card-cover{
+    margin: 0px;
+}
+  
+@media screen and (max-width:600px ){
+    .ant-card-body{
+      padding: 5px;
+    }
+  
+    .value{
+      width: 70%;
+    }
+  
+}
