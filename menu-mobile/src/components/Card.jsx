@@ -16,7 +16,7 @@ export default props =>
     <div className='div-price'>
         <div className='value'>
             <span className='dot'></span>
-            <h3>R$ {props.price}</h3>
+            <h3>{props.price}</h3>
         </div>
         <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}} shape="round" icon={<ShoppingCartOutlined />} size={"middle"} />
     </div>
