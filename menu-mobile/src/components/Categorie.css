@@ -1,5 +1,10 @@
 .div-title{
-    height: auto;
-    width: fit-content;
-    display: flex;
-  }
+  height: auto;
+  width: fit-content;
+  display: flex;
+  padding-left: 5px;
+}
+
+.div-title h2{
+  padding-left: 6px;
+}

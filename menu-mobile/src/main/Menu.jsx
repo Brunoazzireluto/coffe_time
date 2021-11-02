@@ -9,5 +9,5 @@ import Categorie from "../components/Categorie";
 export default props =>
         <div>
             <h1 className='title' >Cardápio</h1>
-            <Slide></Slide>
+            <Slides></Slides>
         </div>
