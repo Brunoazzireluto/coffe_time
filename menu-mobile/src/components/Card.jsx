@@ -1,9 +1,10 @@
 import React from "react";
-import {Card, Button } from "antd";
+import {Card } from "antd";
 import 'antd/dist/antd.css';
 import "./Card.css"
 import Cafe from "../images/coffe-image.jpg"
-import {ShoppingCartOutlined} from '@ant-design/icons';
+
+import Popover from "./Popover"
 
 const { Meta } = Card;
 
@@ -18,6 +19,8 @@ export default props =>
             <span className='dot'></span>
             <h3>{props.price}</h3>
         </div>
-        <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}} shape="round" icon={<ShoppingCartOutlined />} size={"middle"} />
+        <Popover>
+        
+        </Popover>
     </div>
     </Card>
