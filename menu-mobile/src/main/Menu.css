@@ -1,9 +1,31 @@
 
 .title{
     text-align: center;
+    margin: 0;
 }
 
 
 *{
     scroll-behavior: smooth;
+}
+
+.div-header{
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2%;
+    margin-bottom: 3%;
+}
+
+.div-header button{
+    margin-top: 4%;
+    width: 12%;
+    height: 80%;
+    border: none;
+    background-color: transparent;
+}
+
+.div-header button .anticon{
+    font-size: x-large;
 }

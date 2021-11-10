@@ -19,7 +19,7 @@ export default props =>
             <span className='dot'></span>
             <h3>{props.price}</h3>
         </div>
-        <Popover>
+        <Popover id={props.id}>
         
         </Popover>
     </div>

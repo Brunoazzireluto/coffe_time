@@ -1,17 +1,14 @@
 import React, {Component} from "react";
 import "./Popover.css"
 import { Popover, Button, InputNumber, Input } from 'antd';
-import {ShoppingOutlined, ShoppingCartOutlined,PlusOutlined, MinusOutlined, CloseOutlined} from '@ant-design/icons';
+import {CaretUpOutlined, ShoppingOutlined, ShoppingCartOutlined,PlusOutlined, MinusOutlined, CloseOutlined} from '@ant-design/icons';
 
 
 const initialState = {
   visible:false,
-  observation:{
-    quantity: 1,
-    text:''
-  }
+  observation:{ quantity: 1, text:'', id:''},
 }
-
+const list = []
 export default class Infos extends Component {
 
   state = {...initialState};
@@ -23,12 +20,7 @@ export default class Infos extends Component {
 
   getInitialState = () => ({
     visible:false,
-    observation:{
-      id: '',
-      text:'',
-      quantity: 1,
-      
-    }
+    observation:{ id: '', text:'', quantity: 1,},
   })
 
   GetId(){
@@ -59,10 +51,10 @@ export default class Infos extends Component {
 
   ReturnRequest(){
     const a = {...this.state.observation}
-    a.id = this.GetId()
-    console.log(a)
-    this.setState(this.getInitialState())
-
+    a.id = this.props.id
+    list.push(a)
+    console.log(list)
+    this.setState(this.getInitialState());
   }
 
 
@@ -110,8 +102,10 @@ export default class Infos extends Component {
         trigger="click"
         visible={this.state.visible}
         onVisibleChange={this.handleVisibleChange}
-      >
-        <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}} shape="round" icon={<ShoppingOutlined />} size={"middle"} />
+      > <label className='id-invisible'>
+          {this.props.id}
+        </label>
+        <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}} shape="round" icon={<CaretUpOutlined />} size={"middle"} />
       </Popover>
     );
   }

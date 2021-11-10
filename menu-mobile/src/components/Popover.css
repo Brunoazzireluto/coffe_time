@@ -34,3 +34,7 @@
     display: flex;
     justify-content: space-around;
 }
+
+.id-invisible{
+    display: none;
+}

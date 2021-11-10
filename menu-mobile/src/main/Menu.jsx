@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import './Menu.css';
 import Slide from "../components/Slide";
-import Slides from "../components/Slide_cop";
-import Categorie from "../components/Categorie";
+import Cart from "../components/Cart";
 
 
 
-export default props =>
+export default props => 
         <div>
-            <h1 className='title' >Cardápio</h1>
+            <div className='div-header'>
+                <h1 className='title' >Cardápio</h1>
+                <Cart></Cart>
+            </div>
+            
             <Slide></Slide>
         </div>

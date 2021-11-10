@@ -131,7 +131,7 @@ export default class Slide extends Component{
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
                                 {x.map((item) => 
                                 <Col span={12}>
-                                    <Card name={item.name} description={item.description} price={item.price} ></Card>
+                                    <Card name={item.name} description={item.description} price={item.price} id={item.id}></Card>
                                 </Col>
                                 )}
                             </Row>
