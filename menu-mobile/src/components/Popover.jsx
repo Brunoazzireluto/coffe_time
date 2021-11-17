@@ -2,13 +2,16 @@ import React, {Component} from "react";
 import "./Popover.css"
 import { Popover, Button, InputNumber, Input } from 'antd';
 import {CaretUpOutlined, ShoppingOutlined, ShoppingCartOutlined,PlusOutlined, MinusOutlined, CloseOutlined} from '@ant-design/icons';
-
+import { UpdateArrayButtom } from "./test";
+import { NewItem } from "../store/Request";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   visible:false,
   observation:{ quantity: 1, text:'', id:''},
 }
-const list = []
+
+
 export default class Infos extends Component {
 
   state = {...initialState};
@@ -49,13 +52,10 @@ export default class Infos extends Component {
     return this.setState({observation:this.state.observation})
   }
 
-  ReturnRequest(){
-    const a = {...this.state.observation}
-    a.id = this.props.id
-    list.push(a)
-    console.log(list)
-    this.setState(this.getInitialState());
-  }
+
+  // ReturnRequest(){
+  //   UpdateArray()
+  // }
 
 
   hide = () => {
@@ -87,9 +87,7 @@ export default class Infos extends Component {
               </button>
             </div>
             <div className='div-button'>
-              <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}}
-                shape="round" icon={<ShoppingCartOutlined />} size={"middle"} onClick={this.ReturnRequest.bind(this)}>
-              </Button>
+              <UpdateArrayButtoms ></UpdateArrayButtoms>
               <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}}
                 shape="round" icon={<CloseOutlined />} size={"middle"} onClick={this.hide} >
               </Button>
@@ -110,3 +108,18 @@ export default class Infos extends Component {
     );
   }
 }
+
+export function UpdateArrayButtoms() {
+  const dispatch = useDispatch()
+
+  const a = () => {
+      return dispatch(NewItem({id:8, plate:'ddd', value:9}))
+  }
+
+  return(
+      <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}}
+      shape="round" icon={<ShoppingCartOutlined />} size={"middle"} onClick={a}>
+      </Button>
+  )
+}
+

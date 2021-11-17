@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Menu from './main/Menu'
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
+import {store} from './store/Store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Menu />
+    <Provider store={store}>
+      <Menu />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
