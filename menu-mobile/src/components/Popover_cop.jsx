@@ -4,27 +4,17 @@ import { Popover, Button, InputNumber, Input } from 'antd';
 import {CaretUpOutlined, ShoppingOutlined, ShoppingCartOutlined,PlusOutlined, MinusOutlined, CloseOutlined} from '@ant-design/icons';
 import { NewItem } from "../store/Request";
 import { useDispatch } from "react-redux";
-
+import { FieldInput } from "./Inside";
+import { QuantitySelector } from "./Quantity";
 
 const initialState = {
-  visible:false,
-  observation:{ quantity: 1, text:'', id:''},
+  visible:false
 }
 
 
 export default class Infos extends Component {
 
   state = {...initialState};
-
-  constructor(props) {
-    super(props)
-    this.state = this.getInitialState();
-  }
-
-  getInitialState = () => ({
-    visible:false,
-    observation:{ id: '', text:'', quantity: 1,},
-  })
 
   GetId(){
     let min = 1;
@@ -33,33 +23,9 @@ export default class Infos extends Component {
     return rand
   }
 
-  addValue() {
-    const obs = {...this.state.observation}
-    obs.quantity =  this.state.observation.quantity++
-    return this.setState({obs})
-  }
-
-  RemoveValue(){
-    const obs = {...this.state.observation}
-    obs.quantity =  this.state.observation.quantity--
-    return this.setState({obs})
-  }
-
-  UpdateField(event) {
-    let field = event.target.name;
-    let value = event.target.value;
-    this.state.observation[field] = value
-    return this.setState({observation:this.state.observation})
-  }
-
-
-  // ReturnRequest(){
-  //   UpdateArray()
-  // }
-
 
   hide = () => {
-    this.setState(this.getInitialState());
+    this.setState({visible:false});
   };
 
   handleVisibleChange = visible => {
@@ -72,22 +38,11 @@ export default class Infos extends Component {
         content={
           <div className='div-popover'>
             <div className='div-text' >
-            <Input placeholder='Obsrvações do pedido' size={'middle'} value={this.state.observation.text} 
-            onChange={e => this.UpdateField(e)} name='text' />
+                <FieldInput></FieldInput>
             </div>
-            <div className='div-number'>
-              <button onClick={e => this.RemoveValue(e)} >
-                <MinusOutlined></MinusOutlined>
-              </button>
-              <InputNumber min={1} max={100}  
-              value={this.state.observation.quantity} size={'small'} 
-              onChange={e => this.UpdateField(e)} name='quantity'/>
-              <button onClick={e => this.addValue(e)} >
-                <PlusOutlined ></PlusOutlined>
-              </button>
-            </div>
+            <QuantitySelector></QuantitySelector>
             <div className='div-button'>
-              <UpdateArrayButtoms ></UpdateArrayButtoms>
+              <UpdateArrayButtoms plate={'aaa'} ></UpdateArrayButtoms>
               <Button type="primary" style={{backgroundColor:'#532B06', border:'none'}}
                 shape="round" icon={<CloseOutlined />} size={"middle"} onClick={this.hide} >
               </Button>

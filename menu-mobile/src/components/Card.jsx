@@ -5,6 +5,7 @@ import "./Card.css"
 import Cafe from "../images/coffe-image.jpg"
 
 import Popover from "./Popover"
+import Popover_cop from "./Popover_cop"
 
 const { Meta } = Card;
 
@@ -19,8 +20,8 @@ export default props =>
             <span className='dot'></span>
             <h3>{props.price}</h3>
         </div>
-        <Popover id={props.id}>
+        <Popover_cop id={props.id}>
         
-        </Popover>
+        </Popover_cop>
     </div>
     </Card>

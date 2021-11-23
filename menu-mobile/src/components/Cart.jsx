@@ -4,6 +4,7 @@ import "./Cart.css";
 import { Badge, Modal, Input  } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { NewItem } from "../store/Request";
+import { getList } from "../store/Request";
 
 
 
@@ -23,7 +24,7 @@ export default function Cart() {
       setIsModalVisible(false);
     };
     
-    const list = useSelector(state => state.list)
+    const list = useSelector(getList)
     return (
         <React.Fragment>
             <button onClick={showModal}>
