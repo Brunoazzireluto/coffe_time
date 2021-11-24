@@ -3,7 +3,7 @@ import {ShoppingOutlined} from '@ant-design/icons';
 import "./Cart.css";
 import { Badge, Modal, Input  } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { NewItem } from "../store/Request";
+import { getQuantity, getValue, NewItem } from "../store/Request";
 import { getList } from "../store/Request";
 
 
@@ -33,12 +33,12 @@ export default function Cart() {
                 </Badge>
             </button>
             <Modal title="pedido" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                {console.log(list)}
                 {list.map((x) => 
                     <div>
-                        <p key={x.id}> prato: {x.plate} valor: {x.value}</p>
+                        <p key={x.id}> Prato: {x.plate} Valor: {x.price} Quantidade: {x.quantity} Observações: {x.observation}</p>
                     </div>
                 )}
+                {console.log(list)}
             </Modal>
         </React.Fragment>
     );

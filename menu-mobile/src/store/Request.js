@@ -1,18 +1,7 @@
 const initialState = {
     value: '',
     quantity:1,
-    list:
-    [
-        {   id:1,
-            plate:'algum',
-            value:25.05
-        },
-        {
-            id:2,
-            plate:'outro',
-            value: 24.60,
-        }
-    ]
+    list: []
 }
 
 export default function requestsReducer(state = initialState, action){
@@ -28,6 +17,12 @@ export default function requestsReducer(state = initialState, action){
             return {...state, quantity: state.quantity+1}
         case 'DRECREMENT_VALUE':
             return {...state, quantity: state.quantity-1}
+        case 'CHANGE_QUANTITY':
+            return {...state, quantity:action.payload}
+        case 'INITIAL_QUANTITY':
+            return {...state, quantity: 1}
+        case 'INITIAL_VALUE':
+            return { ...state, value: 1}
         default:
             return state
     }
@@ -51,6 +46,11 @@ export const ChangeValue = (value) => ({
     payload:value
 })
 
+export const ChangeQuantity = (quantity) => ({
+    type:'CHANGE_QUANTITY',
+    payload:quantity
+})
+
 export const Increment = () => {
     return {
         type:'INCREMENT_VALUE'
@@ -62,3 +62,15 @@ export const Decrement = () => {
         type:'DRECREMENT_VALUE'
     }
 }
+
+export const Initial_quantity = () =>{
+    return {
+        type: 'INITIAL_QUANTITY'
+    }
+}
+export const  Initial_value = () => {
+    return {
+        type:'INITIAL_VALUE'
+    }
+}
+
