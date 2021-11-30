@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeQuantity, Decrement, getQuantity, Increment } from "../store/Request";
-import {Button, InputNumber } from 'antd';
+import { InputNumber } from 'antd';
 import {PlusOutlined, MinusOutlined} from '@ant-design/icons';
 
 export function QuantitySelector(){
@@ -17,7 +17,7 @@ export function QuantitySelector(){
     }
 
     function onChange(e){
-      dispatch(ChangeQuantity(e.target.value))
+      dispatch(ChangeQuantity(e))
   }
 
     return(
@@ -27,7 +27,7 @@ export function QuantitySelector(){
               </button>
               <InputNumber min={1} max={100}  
               value={quantity} size={'small'}  
-              name='quantity' disabled/>
+              name='quantity' onChange={onChange}/>
               <button onClick={increment} >
                 <PlusOutlined ></PlusOutlined>
               </button>

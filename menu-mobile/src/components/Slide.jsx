@@ -7,7 +7,7 @@ import {Col, Row } from "antd";
 import 'antd/dist/antd.css';
 import Card from "./Card";
 import Categorie from "./Categorie";
-import _, { defaultTo } from "lodash";
+import _  from "lodash";
 
 var settings = {
     arrows: true,
@@ -103,8 +103,6 @@ let categories = [
     }
 ]
 
-const list = _.chunk(items, 2);
-
 export default class Slide extends Component{
 
     NewArray(cat){
@@ -127,7 +125,7 @@ export default class Slide extends Component{
                     <Categorie key={c.id} categorie={c.categorie} image={c.image}></Categorie>
                     <Slider {...settings}>
                         {this.NewArray(c.id).map((x) => 
-                        <div className="site-card-wrapper">
+                        <div className="site-card-wrapper" >
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
                                 {x.map((item) => 
                                 <Col span={12}>

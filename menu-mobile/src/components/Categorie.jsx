@@ -1,7 +1,6 @@
 import React from "react";
 import {Img} from 'react-image';
 import './Categorie.css'
-import Logo from '../images/coffe_logo.png'
 
 export default props => 
     <div className='div-title'>

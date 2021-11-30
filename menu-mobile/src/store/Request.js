@@ -1,4 +1,5 @@
 const initialState = {
+    request: Math.round(1+ (Math.random()* (10000-1))).toString(),
     value: '',
     quantity:1,
     list: []
@@ -21,8 +22,6 @@ export default function requestsReducer(state = initialState, action){
             return {...state, quantity:action.payload}
         case 'INITIAL_QUANTITY':
             return {...state, quantity: 1}
-        case 'INITIAL_VALUE':
-            return { ...state, value: 1}
         default:
             return state
     }
@@ -31,6 +30,7 @@ export default function requestsReducer(state = initialState, action){
 export const getList = state => state.list
 export const getValue = state => state.value
 export const getQuantity = state => state.quantity
+export const getRequest = state => state.request
 
 // actions
 
@@ -66,11 +66,6 @@ export const Decrement = () => {
 export const Initial_quantity = () =>{
     return {
         type: 'INITIAL_QUANTITY'
-    }
-}
-export const  Initial_value = () => {
-    return {
-        type:'INITIAL_VALUE'
     }
 }
 

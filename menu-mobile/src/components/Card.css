@@ -27,7 +27,7 @@
     padding-top:5% ;
     color: #FFF;
     font-size:0.8rem;
-    padding-left: 9%;
+    padding-left: 7%;
 }
   
 .value{
@@ -47,6 +47,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size:90%;
+    margin-top: 2%;
 }
 
 .ant-card-bordered .ant-card-cover{
