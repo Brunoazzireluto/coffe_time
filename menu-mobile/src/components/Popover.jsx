@@ -30,10 +30,10 @@ export default class Infos extends Component {
       <Popover
         content={
           <div className='div-popover'>
-            <div className='div-text' >
-                <FieldInput name='form'></FieldInput>
-            </div>
-            <QuantitySelector></QuantitySelector>
+              <div className='div-text' >
+                  <FieldInput></FieldInput>
+              </div>
+              <QuantitySelector></QuantitySelector>
             <div className='div-button'  >
               <UpdateArrayButtoms id={this.props.id} plate={this.props.name} price={this.props.price}
               ></UpdateArrayButtoms>
@@ -66,7 +66,8 @@ export function UpdateArrayButtoms(props) {
 
   const a = () => {
       dispatch(NewItem({id:props.id, plate:props.plate, price:props.price, quantity:quantity, observation: observations}))
-      dispatch(Initial_quantity())      
+      dispatch(Initial_quantity())     
+
       
   }
 
