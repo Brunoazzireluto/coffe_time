@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask_cors.decorator import cross_origin
 from app import db
 from . import api
 from random import randint
@@ -74,11 +75,12 @@ def menu():
 
 
 @api.route('/categorias')
+@cross_origin()
 def categories():
     categories = [ 
         {
             'id': 1,
-            'categorie':'Café',
+            'categorie':'Cafe',
             'image': 'https://cdn-icons-png.flaticon.com/512/1046/1046887.png'
         },
         {
