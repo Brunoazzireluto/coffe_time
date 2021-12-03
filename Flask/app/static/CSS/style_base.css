@@ -73,5 +73,14 @@ body{
     align-items: center;
 }
 
-.list-items{
+.dropdown{
+    list-style: none;
+}
+
+.dropdown li{
+    display: none;
+}
+
+.list-drop:hover .dropdown li {
+    display: block;
 }
