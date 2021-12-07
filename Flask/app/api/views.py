@@ -5,6 +5,7 @@ from . import api
 from random import randint
 
 @api.route('/menu')
+@cross_origin()
 def menu():
     items = [
         {

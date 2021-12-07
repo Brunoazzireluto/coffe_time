@@ -22,90 +22,10 @@ var settings = {
 };
 
 const initialState = {
-  items:[{
-    id: 1,
-    name: "café 1",
-    description: "alguma descrição",
-    price: 2.5,
-    categorie: 1
-  },
-  {
-    id: 2,
-    name: "Sobremesa 1",
-    description: "alguma descrição",
-    price: 20.5,
-    categorie: 2
-  },
-  {
-    id: 3,
-    name: "sobremesa 2",
-    description: "alguma descrição",
-    price: 5.89,
-    categorie: 2
-  },
-  {
-    id: 4,
-    name: "Café 2",
-    description: "alguma descrição",
-    price: 5.9,
-    categorie: 1
-  },
-  {
-    id: 5,
-    name: "Café 3",
-    description: "alguma descrição",
-    price: 10.90,
-    categorie: 1
-  },
-  {
-    id: 6,
-    name: "Sobremesa 3",
-    description: "alguma descrição",
-    price: 10.90,
-    categorie: 2
-  },
-  {
-    id: 7,
-    name: "Bolo 1",
-    description: "alguma descrição",
-    price: 5.9,
-    categorie: 3
-  },
-  {
-    id: 8,
-    name: "Bolo 2",
-    description: "alguma descrição",
-    price: 10.90,
-    categorie: 3
-  },
-  {
-      id:9,
-      name:'Cafe 4',
-      description:'FUNCIONAAAA',
-      price:100,
-      categorie:1
-  }
-  ],
-  categories:[
-    {
-      id: 1,
-      categorie:'Café',
-      image: 'https://cdn-icons-png.flaticon.com/512/1046/1046887.png'
-  },
-  {
-      id: 2,
-      categorie:'Sobremesa',
-      image: 'https://cdn-icons-png.flaticon.com/512/1047/1047813.png'
-  },
-  {
-      id:3,
-      categorie:'Bolos',
-      image:'https://cdn-icons-png.flaticon.com/512/540/540304.png'
-  }
-  ]
+  items:[],
+  categories:[]
 
 }
-
 
 
 const baseURL = 'http://127.0.0.1:5000/'
@@ -119,31 +39,41 @@ export default class Slide extends Component{
       this.NewArray = this.NewArray.bind(this)
     }
 
-    NewArray(cat){
-        let arr = []
-        Object.keys(this.state.items).forEach(function(key){
-            if(cat === this.state.items[key].categorie){
-                arr.push(this.state.items[key])
-            }
-        })
-        return _.chunk(arr, 2)
+    NewArray(id){
+      let arr = []
+      this.state.items.map((x) =>{
+        if(id == x.categorie){
+          arr.push(x)
+        }
+      })
+      return _.chunk(arr, 2)
     }
 
     componentWillMount() {
       axios(baseURL+'categorias').then(resp => {
-        console.log(resp.data)
+        this.setState({categories:resp.data})
+      })
+      axios(baseURL+'menu').then(resp => {
+        this.setState({items:resp.data})
       })
     } 
+
+    componentWillMountItems(){
+      axios(baseURL+'menu').then(resp => {
+        // this.setState({items:resp.data})
+        console.log(resp.data)
+      })
+    }
 
     Renderslide(){
         return (
             <React.Fragment>
+                {this.componentWillMount()}
                 {this.state.categories.map((c) =>
                 <React.Fragment>
                     <Categorie key={c.id} categorie={c.categorie} image={c.image}></Categorie>
                     <Slider {...settings}>
-                      {console.log(this.NewArray(1))}
-                        {/* {this.NewArray(c.id).map((x) => 
+                        {this.NewArray(c.id).map((x) => 
                         <div className="site-card-wrapper" >
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
                                 {x.map((item) => 
@@ -154,7 +84,7 @@ export default class Slide extends Component{
                             </Row>
                             {this.componentWillMount()}
                         </div>
-                        )} */}
+                        )}
                     </Slider>
                 </React.Fragment>
                 )}
