@@ -3,6 +3,7 @@ from flask_cors.decorator import cross_origin
 from app import db
 from . import api
 from random import randint
+from app.models.models import Categorie
 
 @api.route('/menu')
 @cross_origin()
@@ -78,24 +79,15 @@ def menu():
 @api.route('/categorias')
 @cross_origin()
 def categories():
-    categories = [ 
-        {
-            'id': 1,
-            'categorie':'Cafe',
-            'image': 'https://cdn-icons-png.flaticon.com/512/1046/1046887.png'
-        },
-        {
-            'id': 2,
-            'categorie':'Sobremesa',
-            'image': 'https://cdn-icons-png.flaticon.com/512/1047/1047813.png'
-        },
-        {
-            'id':3,
-            'categorie':'Bolos',
-            'image':'https://cdn-icons-png.flaticon.com/512/540/540304.png'
-        }
-    ]
-    return jsonify(categories)
+    categories_array = []
+    categories = Categorie.query.all()
+    for categorie in categories:
+        categorie_obj ={}
+        categorie_obj['id'] = categorie.id
+        categorie_obj['name'] = categorie.name
+        categorie_obj['photo'] = categorie.photo
+        categories_array.append(categorie_obj)
+    return jsonify(categories_array)
 
 
 
