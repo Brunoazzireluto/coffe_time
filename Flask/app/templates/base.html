@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
+        <script src="{{ url_for('static', filename='JS/jquery-3.5.1.min.js', _external=True) }}"></script>
         <title>Sua marca - {% block title %} {% endblock %}</title>
     </head>
 {% endblock %}
@@ -71,29 +72,27 @@
                     </div>
                 {% endif %}
             </nav>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul class="flashes">
-                    {% for message in messages %}
-                        <div class="message_flash">{{ message.upper() }}</div>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
         </header>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <div class="message_flash">{{ message.capitalize() }}</div>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     {% endblock %}
     <main>
         {% block body %}
         {% endblock %}
     </main>
-</body>
-<script>
-    function myFunction(id_div) {
-        console.log('aaaa')
-        document.getElementById(id_div).classList.toggle("show");
-    }
 
-// Close the dropdown menu if the user clicks outside of it
+</body>
+<script src="{{ url_for('static', filename='JS/base.js') }}"></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'>
+</script>
+<script>
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");

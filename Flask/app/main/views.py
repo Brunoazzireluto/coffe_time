@@ -1,7 +1,7 @@
 from flask import render_template
 from .  import main
 
-@main.route('/')
+@main.route('/home')
 def index():
     return render_template('index.html')
 
@@ -13,7 +13,6 @@ Paginas do app
 Cadastrar pedido
 Editar pedido
 
-adicionar/editar/remover categoria
 adicionar/editar/remover prato
 
 adicionar logica para combos

@@ -19,3 +19,27 @@ def new_categorie():
 def consult_categories():
     categories = Categorie.query.all()
     return render_template('categories/consult_categories.html', categories=categories)
+
+@categories.route('/editar_categoria/<int:id>',  methods=['GET', 'POST'])
+def edit_categorie(id):
+    categorie = Categorie.query.filter_by(id=id).first()
+    data = {
+        'name': categorie.name,
+        'photo': categorie.photo
+    }
+    form = CategorieForm(data=data)
+    if form.validate_on_submit():
+        categorie.name = form.name.data
+        categorie.photo = form.photo.data
+        db.session.commit()
+        flash('Categoria Atualizada')
+        return redirect(url_for('categories.consult_categories'))
+    return render_template('categories/edit_categorie.html', form=form)
+
+@categories.route('/delete_categorie/<int:id>',  methods=['GET', 'POST'])
+def delete_categorie(id):
+    categorie = Categorie.query.filter_by(id=id).first()
+    db.session.delete(categorie)
+    db.session.commit()
+    flash('Categoria Deletada')
+    return redirect(url_for('categories.consult_categories'))
