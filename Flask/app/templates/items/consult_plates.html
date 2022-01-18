@@ -15,6 +15,7 @@
         <thead>
         <tr>
             <th>Categoria</th>
+            <th>Foto</th>
             <th>Nome do Prato</th>
             <th>Descrição</th>
             <th>Preço</th>
@@ -30,6 +31,7 @@
             {% for plate in plates %}
             <tr>
                 <td>{{Categorie.query.filter_by(id=plate.id_categorie).first().name}}</td>
+                <td><img src="{{plate.photo}}" width="75px" height="75px"></td>
                 <td>{{plate.name}}</td>
                 <td> {{plate.description}}</td>
                 <td>{{plate.price}}</td>

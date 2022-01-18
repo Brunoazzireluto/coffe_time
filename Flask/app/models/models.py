@@ -12,6 +12,20 @@ class Categorie(db.Model):
     photo = db.Column(db.String(200))
     plates = db.relationship('Plate', backref='categorie_id', lazy='dynamic')
 
+    def __init__(self, id, name, photo ):
+        self.id = id
+        self.name = name
+        self.photo = photo
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'id' : self.id,
+            'name':self.name,
+            'photo': self.photo
+        }
+
 class  Plate(db.Model):
     __tablename__ = 'plates'
     id =  db.Column(db.Integer, primary_key=True)

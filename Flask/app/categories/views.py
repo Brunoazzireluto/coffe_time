@@ -3,8 +3,10 @@ from . import categories
 from .forms import CategorieForm
 from app.models.models import Categorie
 from .. import db
+from flask_login import login_required
 
 @categories.route('/nova_categoria',  methods=['GET', 'POST'])
+@login_required
 def new_categorie():
     form = CategorieForm()
     if form.validate_on_submit():
@@ -16,11 +18,13 @@ def new_categorie():
     return render_template('categories/new_categorie.html', form=form)
 
 @categories.route('/consultar_categorias')
+@login_required
 def consult_categories():
     categories = Categorie.query.all()
     return render_template('categories/consult_categories.html', categories=categories)
 
 @categories.route('/editar_categoria/<int:id>',  methods=['GET', 'POST'])
+@login_required
 def edit_categorie(id):
     categorie = Categorie.query.filter_by(id=id).first()
     data = {
@@ -37,6 +41,7 @@ def edit_categorie(id):
     return render_template('categories/edit_categorie.html', form=form)
 
 @categories.route('/delete_categorie/<int:id>',  methods=['GET', 'POST'])
+@login_required
 def delete_categorie(id):
     categorie = Categorie.query.filter_by(id=id).first()
     db.session.delete(categorie)

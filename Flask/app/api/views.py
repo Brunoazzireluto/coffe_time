@@ -17,20 +17,6 @@ def menu():
         'categorie': 1
         },
         {
-        'id': 2,
-        'name': "Sobremesa 1",
-        'description': "alguma descrição",
-        'price': 20.5,
-        'categorie': 2
-        },
-        {
-        'id': 3,
-        'name': "sobremesa 2",
-        'description': "alguma descrição",
-        'price': 5.89,
-        'categorie': 2
-        },
-        {
         'id': 4,
         'name': "Café 2",
         'description': "alguma descrição",
@@ -43,51 +29,17 @@ def menu():
         'description': "alguma descrição",
         'price': 10.90,
         'categorie': 1
-        },
-        {
-        'id': 6,
-        'name': "Sobremesa 3",
-        'description': "alguma descrição",
-        'price': 10.90,
-        'categorie': 2
-        },
-        {
-        'id': 7,
-        'name': "Bolo 1",
-        'description': "alguma descrição",
-        'price': 5.9,
-        'categorie': 3
-        },
-        {
-        'id': 8,
-        'name': "Bolo 2",
-        'description': "alguma descrição",
-        'price': 10.90,
-        'categorie': 3
-        },
-        {
-            'id':9,
-            'name':'Cafe 4',
-            'description':'FUNCIONAAAA',
-            'price':100,
-            'categorie':1
         }
     ]
     return jsonify(items)
 
 
-@api.route('/categorias')
+@api.route('/categorias_api')
 @cross_origin()
-def categories():
-    categories_array = []
+def categories_api():
     categories = Categorie.query.all()
-    for categorie in categories:
-        categorie_obj ={}
-        categorie_obj['id'] = categorie.id
-        categorie_obj['name'] = categorie.name
-        categorie_obj['photo'] = categorie.photo
-        categories_array.append(categorie_obj)
-    return jsonify(categories_array)
+    json_list = [i.serialize for i in categories]
+    return jsonify(json_list)
 
 
 

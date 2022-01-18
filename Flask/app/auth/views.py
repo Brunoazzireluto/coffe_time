@@ -7,6 +7,7 @@ from .. import db
 
 #rotas de login e logout
 @auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():

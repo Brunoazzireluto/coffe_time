@@ -50,7 +50,7 @@ export default class Slide extends Component{
     }
 
     componentWillMount() {
-      axios(baseURL+'categorias').then(resp => {
+      axios(baseURL+'categorias_api').then(resp => {
         this.setState({categories:resp.data})
       })
       axios(baseURL+'menu').then(resp => {

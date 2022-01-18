@@ -1,10 +1,22 @@
 from flask import render_template
 from .  import main
+from flask_login import login_required
+from ..models.models import Categorie, Plate
+from .forms import RequestForm
+
 
 @main.route('/home')
+@login_required
 def index():
     return render_template('index.html')
 
+
+@main.route('/novo_pedido')
+@login_required
+def new_request():
+    form= RequestForm()
+    categories = Categorie.query.all()
+    return render_template('new_request.html', form=form)
 
 
 """
