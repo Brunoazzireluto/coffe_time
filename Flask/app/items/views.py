@@ -7,6 +7,8 @@ from app.models.models import Categorie, Plate
 from app import db, photos
 from . import items
 from ..OCI.oci import UploadOci
+from random import randint
+
 
 @items.route('/novo_prato',methods=['GET', 'POST'])
 @login_required
@@ -20,13 +22,13 @@ def new_plate():
         db.session.commit()
         flash('Prato adicionado com Sucesso')
         return redirect(url_for('items.new_plate'))
-    return render_template('items/new_plate.html', form=form)
+    return render_template('items/new_plate.html', form=form, randint=randint)
 
 @items.route('/consultar_pratos')
 @login_required
 def consult_plates():
     plates = Plate.query.order_by(Plate.id_categorie).all()
-    return render_template('items/consult_plates.html', plates=plates, Categorie=Categorie)
+    return render_template('items/consult_plates.html', plates=plates, Categorie=Categorie, randint=randint)
 
 
 @items.route('/edit_plate/<int:id>', methods=['GET', 'POST'])
@@ -47,7 +49,7 @@ def edit_plate(id):
         plate.name = form.name.data
         plate.description = form.description.data
         plate.price = form.price.data
-    return render_template('items/edit_plate.html', form=form)
+    return render_template('items/edit_plate.html', form=form, randint=randint)
 
 
 

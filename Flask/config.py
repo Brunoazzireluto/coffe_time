@@ -15,9 +15,9 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     #Casa
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/Coffe_time'
+    #SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/Coffe_time'
     #Maeda
-    #SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://maeda-st:Maeda123@localhost/coffe_api'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://maeda-st:Maeda123@localhost/coffe_api'
 
 
 class TestingConfig(Config):

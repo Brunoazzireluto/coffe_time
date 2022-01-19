@@ -8,38 +8,59 @@
 {% endblock%}
 
 {% block body %}
-<div class="carousel">
-    <div>
-        <div class="div-card">
-            <div class="div-image"><img src="https://images.unsplash.com/photo-1642287458180-449fad5abc2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" ></div>
-            <div class="div-info" >
-                <div class="div1"> </div>
-                <div class="div2"> {{form.observations (placeholder='Informações Adicionais')}}</div>
-                <div class="div3"> 
-                    <div class="div-numberInput">
-                        <button>+</button>
-                        {{form.quantity (value=1)}}
-                        <button>-</button>
-                    </div>
-                </div>
-                <div class="div4"></div>
+<main style="display: block; margin-top: 20%;">
+        <a class="div-cart" href="{{url_for('main.cart', id=random)}}">
+            <span class="material-icons">shopping_cart</span>
+            <div class="div-itens">
+                {% set itens = Request.query.filter_by(id_request=random).all() %}
+                <sup>{{itens|length}}</sup>
             </div>
+        </a>
+{% for categorie in categories %}
+    <div class="div-categorie">
+        <div class="div-logo">
+            <img src="{{categorie.photo}}"  width="75%" height="75%" alt="">
         </div>
+        <div class="div-title">{{categorie.name}}</div>
     </div>
-    <div>
-        <div class="div-card"></div>
-    </div>    
-    <div>
-        <div class="div-card"></div>
-    </div>    
-    <div>
-        <div class="div-card"></div>
-    </div>   
-     <div>
-        <div class="div-card"></div>
+    <div class="carousel">
+        {% set plates = Plate.query.filter_by(id_categorie=categorie.id).all() %}
+        {% for plate in plates %}
+            <div>
+                <div class="div-card">
+                    <div class="div-image"><img src="{{plate.photo}}" ></div>
+                    <form class="div-info" method="POST" action="{{url_for('main.add_to_cart', random=random, plate_id=plate.id)}}">
+                        <div class="div1"> 
+                            <div class="div-id">{{plate.id}}</div>
+                            <div class="div-name">{{plate.name}}</div>
+                            <div class="div-price" >R$ {{plate.price}}</div>
+                        </div>
+                        {{ form.csrf_token }}
+                            <div class="div2"> {{form.observations (placeholder='Informações Adicionais')}}</div>
+                            <div class="div3"> 
+                                <div onclick="Donw()" >
+                                    <span class="material-icons">remove</span>
+                                </div>
+                                {{form.quantity}}
+                                <div onclick="Up()" >
+                                    <span class="material-icons">add</span>
+                                </div>
+                            </div>
+                            <div class="div4">
+                                <a>
+                                    <button>
+                                        <span class="material-icons">add_shopping_cart</span>
+                                    </button>
+                                </a>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     </div>
+{% endfor %}
+</main>
 
-</div>
 
 
 
@@ -54,7 +75,19 @@ $('.carousel').slick({
   slidesToShow: 3,
   slidesToScroll: 3,
   centerMode: true,
-  centerPadding: '5%',
+  centerPadding: '1%',
 });
+
+
+let number = document.getElementById('quantity')
+
+function Up(){
+    number.value++
+}
+
+function Donw(){
+    number.value--
+}
+
 </script>
 {% endblock %}

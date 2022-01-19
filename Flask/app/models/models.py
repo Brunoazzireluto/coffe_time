@@ -40,8 +40,10 @@ class  Plate(db.Model):
 class Request(db.Model):
     __tablename__ = 'Requests'
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    id_request = db.Column(db.Integer, unique=True)
+    id_request = db.Column(db.Integer, unique=False)
     id_plate = db.Column(db.Integer, db.ForeignKey('plates.id'), nullable=False)
+    observations = db.Column(db.Text, nullable=True)
+    quantity =  db.Column(db.Integer, nullable=False)
 
 
 class Users(UserMixin, db.Model):

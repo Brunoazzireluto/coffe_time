@@ -4,6 +4,8 @@ from .forms import CategorieForm
 from app.models.models import Categorie
 from .. import db
 from flask_login import login_required
+from random import randint
+
 
 @categories.route('/nova_categoria',  methods=['GET', 'POST'])
 @login_required
@@ -15,13 +17,13 @@ def new_categorie():
         db.session.commit()
         flash('Categoria Cadastrada')
         return redirect(url_for('categories.new_categorie'))
-    return render_template('categories/new_categorie.html', form=form)
+    return render_template('categories/new_categorie.html', form=form, randint=randint)
 
 @categories.route('/consultar_categorias')
 @login_required
 def consult_categories():
     categories = Categorie.query.all()
-    return render_template('categories/consult_categories.html', categories=categories)
+    return render_template('categories/consult_categories.html', categories=categories, randint=randint)
 
 @categories.route('/editar_categoria/<int:id>',  methods=['GET', 'POST'])
 @login_required
@@ -38,7 +40,7 @@ def edit_categorie(id):
         db.session.commit()
         flash('Categoria Atualizada')
         return redirect(url_for('categories.consult_categories'))
-    return render_template('categories/edit_categorie.html', form=form)
+    return render_template('categories/edit_categorie.html', form=form, randint=randint)
 
 @categories.route('/delete_categorie/<int:id>',  methods=['GET', 'POST'])
 @login_required

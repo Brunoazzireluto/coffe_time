@@ -4,6 +4,8 @@ from . import auth
 from ..models.models import Users
 from .forms import LoginForm, ChangerPassword
 from .. import db
+from random import randint
+
 
 #rotas de login e logout
 @auth.route('/login', methods=['GET', 'POST'])
@@ -19,7 +21,7 @@ def login():
                 next = url_for('main.index')
             return redirect(next)
         flash('Usuario ou Senha Inválida')
-    return render_template('auth/login.html', form=form)   
+    return render_template('auth/login.html', form=form, randint=randint)   
 
 @auth.route('/logout')
 @login_required
@@ -45,7 +47,7 @@ def change_password():
                 flash('Senha antiga Inválida.')
         else:
             flash('As senhas precisam ser iguais')
-    return render_template("auth/change_password.html", form=form)
+    return render_template("auth/change_password.html", form=form, randint=randint)
 
 @auth.route('/novo_usuario', methods=['GET', 'POST'])
 @login_required
@@ -57,7 +59,7 @@ def new_user():
         db.session.commit()
         flash('Usuario Criado com o login {} e senha {}'.format(form.username.data, form.password.data))
         redirect(url_for('main.index'))
-    return render_template("auth/new_user.html", form=form)
+    return render_template("auth/new_user.html", form=form, randint=randint)
 
 @auth.route('/usuarios')
 @login_required

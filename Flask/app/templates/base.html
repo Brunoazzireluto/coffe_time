@@ -23,7 +23,7 @@
                 </div>
                 <ul class="list">
                     <li class="list-items">
-                        <a href="#">Novo Pedido <span class="material-icons">add_circle</span></a>
+                        <a href="{{url_for('main.new_request', random=randint(0,10000))}}">Novo Pedido <span class="material-icons">add_circle</span></a>
                     </li>
                     <div class="div-button">
                         <button onclick="myFunction('it-2')" class="dropbtn" > Categorias
