@@ -1,3 +1,4 @@
+from datetime import datetime, tzinfo
 from flask import render_template, redirect, url_for, flash, request
 from .  import main
 from flask_login import login_required
@@ -5,7 +6,10 @@ from ..models.models import Categorie, Plate, Request
 from .forms import RequestForm
 from random import randint
 from app import db
+from ..OCI.regex import Regex
+import pytz
 
+sp = pytz.timezone('America/Sao_Paulo')
 
 @main.route('/home')
 @login_required
@@ -16,9 +20,10 @@ def index():
 @main.route('/novo_pedido/<int:random>')
 @login_required
 def new_request(random):
+    r= Regex()
     form= RequestForm()
     categories = Categorie.query.all()
-    return render_template('new_request.html', form=form, categories=categories, Plate=Plate, randint=randint, random=random, Request=Request)
+    return render_template('new_request.html', form=form, categories=categories, Plate=Plate, r=r, randint=randint, random=random, Request=Request)
 
 
 @main.route('/add_to_cart/<int:plate_id>/<int:random>', methods=['GET', 'POST'])
@@ -37,14 +42,34 @@ def add_to_cart(plate_id, random):
 @main.route('/Pedido_N<int:id>')
 @login_required
 def cart(id):
+    r = Regex()
     requests = Request.query.filter_by(id_request=id).all()
-    return render_template('cart.html', requests=requests, id=id, Plate=Plate, randint=randint)
+    return render_template('cart.html', requests=requests, id=id, Plate=Plate, randint=randint, sum=sum, r=r)
 
+
+@main.route('/delete_item/<int:id_plate>/<int:id_request>')
+@login_required
+def delete_item(id_plate,id_request):
+    item = Request.query.filter_by(id_request=id_request).filter_by(id_plate=id_plate).first()
+    db.session.delete(item)
+    db.session.commit()
+    flash('Item Removido')
+    return redirect(url_for('main.cart', id=id_request))
+
+@main.route('/fechar_pedido/<int:id_request>')
+@login_required
+def close_request(id_request):
+    date = datetime.today().astimezone()
+    print(date)
+    return '<h1>a</h1>'
 
 @main.route('/loading')
 @login_required
 def load():
     return render_template('load.html')
+
+
+
 
 """
 Paginas do app

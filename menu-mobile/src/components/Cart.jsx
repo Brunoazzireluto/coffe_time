@@ -38,7 +38,6 @@ export default function Cart() {
                         <p key={x.id}> Prato: {x.plate} Valor: {x.price} Quantidade: {x.quantity} Observações: {x.observation}</p>
                     </div>
                 )}
-                {console.log(list)}
             </Modal>
         </React.Fragment>
     );

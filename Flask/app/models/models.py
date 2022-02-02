@@ -5,18 +5,28 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .. import login_manager
 
+
+class Ncm(db.Model):
+    __tablename__ = 'ncms'
+    code = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(100))
+
+    @staticmethod
+    def add_ncm():
+        """Adiciona os ncms automaticamente no banco de dados"""
+        # ncms = [
+        #     {'code':09011200, 'description':'Café Descafeinado'},{'code':09012100, 'description':'Café Não descafeinado'},
+        #     {'code':, 'description':}
+        # ]
+
+
 class Categorie(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
     photo = db.Column(db.String(200))
     plates = db.relationship('Plate', backref='categorie_id', lazy='dynamic')
-
-    def __init__(self, id, name, photo ):
-        self.id = id
-        self.name = name
-        self.photo = photo
-
+    
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
@@ -44,6 +54,7 @@ class Request(db.Model):
     id_plate = db.Column(db.Integer, db.ForeignKey('plates.id'), nullable=False)
     observations = db.Column(db.Text, nullable=True)
     quantity =  db.Column(db.Integer, nullable=False)
+
 
 
 class Users(UserMixin, db.Model):
@@ -75,3 +86,17 @@ class Users(UserMixin, db.Model):
 
     def get_id(self):
         return (self.id)
+
+class Company(db.Model):
+    __tablename__ = 'company'
+    cnpj = db.Column(db.String(15), primary_key=True)
+    company_name = db.Column(db.String(100))
+    name_fantasy = db.Column(db.String(100), nullable=True)
+    adress = db.Column(db.String(200))
+
+    @staticmethod
+    def add_company():
+        company = Company(cnpj=33152305000178,company_name='Cafeteria cafe com cookies ltda',name_fantasy="Cookies N' Coffe",adress='Av Leonardo da Vinci, 1075, loja 11,  São Paulo-SP')
+        db.session.add(company)
+        db.session.commit()
+        print('Empresa criada')

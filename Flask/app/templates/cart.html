@@ -14,10 +14,12 @@
     <table cellpadding="0" cellspacing="0" border="0">
         <thead>
         <tr>
+            
             <th>Prato</th>
             <th>Observações</th>
             <th>Quantidade</th>
-            <th>Valor</th>
+            <th>Valor Total</th>
+            <th>Remover Item</th>
         </tr>
         </thead>
     </table>
@@ -25,21 +27,32 @@
     <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
         <tbody id="table_body">
+            {% set prices = [] %}
             {% for request in requests %}
                 {% set plate = Plate.query.filter_by(id=request.id_plate).first()  %}
                 {% set final_price = plate.price*request.quantity %}
+                {{prices.append(final_price)}}
             <tr>
                 <td>{{plate.name}}</td>
                 <td>{{request.observations}}</td>
                 <td> {{request.quantity}} </td>
-                <td>{{final_price}}</td>
-                
+                <td>R$ {{r.replace_dot(final_price)}}</td>
+                <td class="center-button" >
+                    <div class="div-button" >
+                        <a href="{{url_for('main.delete_item', id_request=id, id_plate=plate.id)}}" id="aprove" title="Remover">
+                            <div class="div-danger" >
+                                <span class="material-icons">delete</span>
+                            </div>
+                        </a>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     </div>
 </section>
+<p>RS {{r.replace_dot(sum(prices))}}</p>
 <div class="button-div">
     <a href="{{url_for('main.index')}}">
         <button>

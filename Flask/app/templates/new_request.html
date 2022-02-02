@@ -33,18 +33,18 @@
                         <div class="div1"> 
                             <div class="div-id">{{plate.id}}</div>
                             <div class="div-name">{{plate.name}}</div>
-                            <div class="div-price" >R$ {{plate.price}}</div>
+                            <div class="div-price" >R$ {{r.replace_dot(plate.price)}}</div>
                         </div>
                         {{ form.csrf_token }}
                             <div class="div2"> {{form.observations (placeholder='Informações Adicionais')}}</div>
                             <div class="div3"> 
-                                <div onclick="Donw()" >
+                                <!-- <div class="down" onclick="Donw()" >
                                     <span class="material-icons">remove</span>
-                                </div>
-                                {{form.quantity}}
-                                <div onclick="Up()" >
+                                </div> -->
+                                {{form.quantity(value=1, type='number')}}
+                                <!-- <div onclick="Up()"" >
                                     <span class="material-icons">add</span>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="div4">
                                 <a>

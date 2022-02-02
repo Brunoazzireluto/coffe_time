@@ -27,8 +27,11 @@ const initialState = {
 
 }
 
+const config = {
+  headers: {'Access-Control-Allow-Origin': '*'}
+};
 
-const baseURL = 'http://127.0.0.1:5000/'
+const baseURL = 'http://127.0.0.1:5000/api/'
 
 export default class Slide extends Component{
 
@@ -42,7 +45,7 @@ export default class Slide extends Component{
     NewArray(id){
       let arr = []
       this.state.items.map((x) =>{
-        if(id == x.categorie){
+        if(id == x.id_categorie){
           arr.push(x)
         }
       })
@@ -50,20 +53,14 @@ export default class Slide extends Component{
     }
 
     componentWillMount() {
-      axios(baseURL+'categorias_api').then(resp => {
+      axios(baseURL+'categorias', config).then(resp =>{
         this.setState({categories:resp.data})
       })
-      axios(baseURL+'menu').then(resp => {
+      axios(baseURL+'menu', config).then(resp => {
         this.setState({items:resp.data})
       })
     } 
 
-    componentWillMountItems(){
-      axios(baseURL+'menu').then(resp => {
-        // this.setState({items:resp.data})
-        console.log(resp.data)
-      })
-    }
 
     Renderslide(){
         return (
@@ -71,18 +68,17 @@ export default class Slide extends Component{
                 {this.componentWillMount()}
                 {this.state.categories.map((c) =>
                 <React.Fragment>
-                    <Categorie key={c.id} categorie={c.categorie} image={c.image}></Categorie>
+                    <Categorie key={c.id} categorie={c.name} image={c.photo}></Categorie>
                     <Slider {...settings}>
                         {this.NewArray(c.id).map((x) => 
                         <div className="site-card-wrapper" >
                             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
                                 {x.map((item) => 
                                 <Col span={12}>
-                                    <Card name={item.name} description={item.description} price={item.price} id={item.id}></Card>
+                                    <Card name={item.name} description={item.description} price={item.price} id={item.id} photo={item.photo} ></Card>
                                 </Col>
                                 )}
                             </Row>
-                            {this.componentWillMount()}
                         </div>
                         )}
                     </Slider>

@@ -1,11 +1,15 @@
 from flask import jsonify
 from flask_cors.decorator import cross_origin
-from app import db
-from . import api
 from random import randint
-from app.models.models import Categorie
 
-@api.route('/menu')
+
+
+
+
+
+
+
+@appi.route('/menu')
 @cross_origin()
 def menu():
     items = [
@@ -34,15 +38,9 @@ def menu():
     return jsonify(items)
 
 
-@api.route('/categorias_api')
-@cross_origin()
-def categories_api():
-    categories = Categorie.query.all()
-    json_list = [i.serialize for i in categories]
-    return jsonify(json_list)
 
 
 
-@api.route('/novo-pedido', methods=['GET'])
+@appi.route('/novo-pedido', methods=['GET'])
 def new__request():
     return {'Pedido': randint(1, 100000000)}

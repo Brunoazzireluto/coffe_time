@@ -7,7 +7,7 @@ import Popover from "./Popover"
 
 const { Meta } = Card; 
 export default props  =>
-< Card  cover={<img alt="example" src={Cafe}/>}  bodyStyle={{backgroundColor:'#121212'}}>
+< Card  cover={<img alt={props.name} src={props.photo}/>}  bodyStyle={{backgroundColor:'#121212'}}>
     <Meta  title={props.name}  style={{co:'#FFF'}}/>
     <div className='div-description'>
         {props.description}

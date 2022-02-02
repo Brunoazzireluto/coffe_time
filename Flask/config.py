@@ -2,11 +2,17 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Chave Secreta'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BABEL_DEFAULT_LOCALE = 'pt'
     UPLOADED_PHOTOS_DEST = "images"
+    RESTFUL_JSON = {'ensure_ascii': False}
+    MYSQL_DATABASE_HOST = 'localhost'
+    MYSQL_DATABASE_USER = 'Azzi'
+    MYSQL_DATABASE_PASSWORD = 'Bu.62991881'
+    MYSQL_DATABASE_DB = 'Coffe_time'
 
     @staticmethod
     def init_app(app):
@@ -15,9 +21,9 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     #Casa
-    #SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/Coffe_time'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/Coffe_time'
     #Maeda
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://maeda-st:Maeda123@localhost/coffe_api'
+    #SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://maeda-st:Maeda123@localhost/coffe_api'
 
 
 class TestingConfig(Config):
