@@ -8,11 +8,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BABEL_DEFAULT_LOCALE = 'pt'
     UPLOADED_PHOTOS_DEST = "images"
-    RESTFUL_JSON = {'ensure_ascii': False}
-    MYSQL_DATABASE_HOST = 'localhost'
-    MYSQL_DATABASE_USER = 'Azzi'
-    MYSQL_DATABASE_PASSWORD = 'Bu.62991881'
-    MYSQL_DATABASE_DB = 'Coffe_time'
 
     @staticmethod
     def init_app(app):

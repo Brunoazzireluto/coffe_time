@@ -1,8 +1,8 @@
-from datetime import datetime, tzinfo
+from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request
 from .  import main
 from flask_login import login_required
-from ..models.models import Categorie, Plate, Request
+from ..models.models import Categorie, Plate, Request, RequestInfo
 from .forms import RequestForm
 from random import randint
 from app import db
@@ -32,7 +32,7 @@ def add_to_cart(plate_id, random):
     form=RequestForm()
     plate=Plate.query.filter_by(id=plate_id).first()
     if form.validate_on_submit():
-        request = Request(id_request=random, plate_id=plate,observations=form.observations.data, quantity=form.quantity.data)
+        request = Request(id_request=random, plate_id=plate,observations=form.observations.data, quantity=form.quantity.data, value=(plate.price*form.quantity.data))
         db.session.add(request)
         db.session.commit()
         flash('Pedido adicionado ao carrinho')
@@ -60,8 +60,11 @@ def delete_item(id_plate,id_request):
 @login_required
 def close_request(id_request):
     date = datetime.today().astimezone()
-    print(date)
-    return '<h1>a</h1>'
+    infos = RequestInfo(id_request=id_request, date=date)
+    db.session.add(infos)
+    db.session.commit()
+    flash('Pedido Fechado')
+    return redirect(url_for('main.load'))
 
 @main.route('/loading')
 @login_required

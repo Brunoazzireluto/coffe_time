@@ -36,7 +36,7 @@
                 <td>{{plate.name}}</td>
                 <td>{{request.observations}}</td>
                 <td> {{request.quantity}} </td>
-                <td>R$ {{r.replace_dot(final_price)}}</td>
+                <td>R$ {{r.replace_dot(request.value)}}</td>
                 <td class="center-button" >
                     <div class="div-button" >
                         <a href="{{url_for('main.delete_item', id_request=id, id_plate=plate.id)}}" id="aprove" title="Remover">
@@ -64,7 +64,7 @@
             Editar Pedido
         </button>
     </a>
-    <a href="{{url_for('main.load')}}">
+    <a href="{{url_for('main.close_request', id_request=id)}}">
         <button>
             Fechar Pedido
         </button>

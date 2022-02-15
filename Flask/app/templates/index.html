@@ -3,11 +3,42 @@
 {% block head%}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static', filename='CSS/style_index.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/style_table.css') }}">
 {% endblock%}
 
 {% block body %}
 <div class="parent">
-    <div class="div1"> aa</div>
-    <div class="div2">aa </div>
+    <div class="div1">
+        <section>
+            <h2 class="title">Ultimos Pedidos</h2>
+            <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                <tr>
+                    <th>Número Pedido</th>
+                    <th>Quantidade de itens</th>
+                    <th>Valor total</th>
+                </tr>
+                </thead>
+            </table>
+            </div>
+            <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody id="table_body">
+                    <!-- {% for cat in categories %}
+                    <tr>
+                        <td>{{cat.id}}</td>
+                        <td>{{cat.name}}</td>
+                        <td> <img src="{{cat.photo}}" alt="" width="25px" height="25px"> </td>
+                    </tr>
+                    {% endfor %} -->
+                </tbody>
+            </table>
+            </div>
+        </section>
+
     </div>
+    <div class="div2">bb</div>
+</div>
+<script src="{{ url_for('static', filename='JS/table.js') }}" ></script>
 {% endblock %}

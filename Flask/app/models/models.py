@@ -1,4 +1,5 @@
 from enum import unique
+from sqlalchemy import true
 from sqlalchemy.orm import backref
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -27,14 +28,7 @@ class Categorie(db.Model):
     photo = db.Column(db.String(200))
     plates = db.relationship('Plate', backref='categorie_id', lazy='dynamic')
     
-    @property
-    def serialize(self):
-        """Return object data in easily serializable format"""
-        return {
-            'id' : self.id,
-            'name':self.name,
-            'photo': self.photo
-        }
+
 
 class  Plate(db.Model):
     __tablename__ = 'plates'
@@ -54,7 +48,13 @@ class Request(db.Model):
     id_plate = db.Column(db.Integer, db.ForeignKey('plates.id'), nullable=False)
     observations = db.Column(db.Text, nullable=True)
     quantity =  db.Column(db.Integer, nullable=False)
-
+    value = db.Column(db.Float)
+    
+class RequestInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    id_request = db.Column(db.Integer, unique=true)
+    date = db.Column(db.DateTime)
+   
 
 
 class Users(UserMixin, db.Model):

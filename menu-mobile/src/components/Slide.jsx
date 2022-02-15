@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -11,85 +11,87 @@ import _  from "lodash";
 import api from "../api";
 import axios from "axios";
 
-var settings = {
-    arrows: true,
-    touchMove:true,
-    draggable:true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-};
 
-const initialState = {
-  items:[],
-  categories:[]
+const Slide = () => {
+    var settings = {
+        arrows: true,
+        touchMove:true,
+        draggable:true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
-}
+    const config = {
+        headers: {'Access-Control-Allow-Origin': '*'}
+    };
+      
+    const baseURL = 'http://127.0.0.1:5000/api/'
 
-const config = {
-  headers: {'Access-Control-Allow-Origin': '*'}
-};
+    const [categories, setCategories] = useState([]);
+    const [items, setItems] = useState([]);
 
-const baseURL = 'http://127.0.0.1:5000/api/'
+    // const fetchData = async () =>{
+    //     try{
+    //         const { data: response } = await axios.get(baseURL+'categorias', config);
+    //         setData(response);
+    //     }catch (error){
+    //         console.error(error.message)
+    //     }
+    // }
 
-export default class Slide extends Component{
+    const fetchDataCategories = () => {
+        axios.get(baseURL+'categorias', config).then((resp) =>{
+            setCategories(resp.data)
+        })
+    }
 
-    state = {...initialState}
+    const fetchDataItems = () => {
+        axios.get(baseURL+'menu', config).then((resp) =>{
+            setItems(resp.data)
+        })
+    }
+
+    useEffect(() => {
+        fetchDataCategories();
+        fetchDataItems();
+    }, []);
+
+    function NewArray(id){
+        let arr = []
+        items.map((x) =>{
+          if(id == x.id_categorie){
+            arr.push(x)
+          }
+        })
+        return _.chunk(arr, 2)
+    }
+
     
-    constructor(props){
-      super(props);
-      this.NewArray = this.NewArray.bind(this)
-    }
 
-    NewArray(id){
-      let arr = []
-      this.state.items.map((x) =>{
-        if(id == x.id_categorie){
-          arr.push(x)
-        }
-      })
-      return _.chunk(arr, 2)
-    }
-
-    componentWillMount() {
-      axios(baseURL+'categorias', config).then(resp =>{
-        this.setState({categories:resp.data})
-      })
-      axios(baseURL+'menu', config).then(resp => {
-        this.setState({items:resp.data})
-      })
-    } 
-
-
-    Renderslide(){
-        return (
-            <React.Fragment>
-                {this.componentWillMount()}
-                {this.state.categories.map((c) =>
+    return (
+        <React.Fragment>
+              {categories.map((cat) =>
                 <React.Fragment>
-                    <Categorie key={c.id} categorie={c.name} image={c.photo}></Categorie>
-                    <Slider {...settings}>
-                        {this.NewArray(c.id).map((x) => 
+                    <Categorie key={cat.id} categorie={cat.name} image={cat.photo}></Categorie>
+                    {<Slider {...settings}>
+                      {NewArray(cat.id).map((x) => 
                         <div className="site-card-wrapper" >
-                            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
-                                {x.map((item) => 
-                                <Col span={12}>
-                                    <Card name={item.name} description={item.description} price={item.price} id={item.id} photo={item.photo} ></Card>
-                                </Col>
-                                )}
-                            </Row>
+                          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} key={x.id}>
+                            {x.map((item) => 
+                              <Col span={12}>
+                                <Card name={item.name} description={item.description} price={item.price} id={item.id} photo={item.photo} ></Card>
+                              </Col>
+                            )}
+                          </Row>
                         </div>
-                        )}
-                    </Slider>
+                      )}
+                      </Slider>}
                 </React.Fragment>
-                )}
-            </React.Fragment>
-        )
-    }
-
-    render() {
-        return this.Renderslide()
-    }
+              )}
+      </React.Fragment>
+    )
 }
 
+export default Slide;

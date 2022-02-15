@@ -4,8 +4,14 @@ import "./Cart.css";
 import { Badge, Modal } from "antd";
 import { useSelector } from "react-redux";
 import {getRequest, getList } from "../store/Request";
+import axios from "axios";
 
 
+const config = {
+    headers: {'Access-Control-Allow-Origin': '*'}
+};
+  
+const baseURL = 'http://127.0.0.1:5000/api/'
 
 export default function Cart() {
     const [isModalVisible, setIsModalVisible] = useState(false);  
@@ -14,7 +20,9 @@ export default function Cart() {
     };
   
     const handleOk = () => {
-      console.log(list)
+        axios.post(baseURL+'pedido/'+request, {plates:list}, config).then(resp =>{
+            console.log(resp.data)
+        })
     };
   
     const handleCancel = () => {

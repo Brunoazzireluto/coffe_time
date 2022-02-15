@@ -2,7 +2,7 @@ const initialState = {
     request: Math.round(1+ (Math.random()* (10000-1))).toString(),
     value: '',
     quantity:1,
-    list: []
+    plates: []
 }
 
 export default function requestsReducer(state = initialState, action){
@@ -10,7 +10,7 @@ export default function requestsReducer(state = initialState, action){
         case 'ADD_ITEM':
             return{
                 ...state,
-                list:[...state.list, action.payload]
+                plates:[...state.plates, action.payload]
             }
         case 'CHANGE_VALUE':
             return {...state, value:action.payload}
@@ -27,7 +27,7 @@ export default function requestsReducer(state = initialState, action){
     }
 }
 
-export const getList = state => state.list
+export const getList = state => state.plates
 export const getValue = state => state.value
 export const getQuantity = state => state.quantity
 export const getRequest = state => state.request
