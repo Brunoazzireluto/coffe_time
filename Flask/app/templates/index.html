@@ -15,6 +15,7 @@
             <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                 <tr>
+                    <th>Data</th>
                     <th>Número Pedido</th>
                     <th>Quantidade de itens</th>
                     <th>Valor total</th>
@@ -25,13 +26,14 @@
             <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
                 <tbody id="table_body">
-                    <!-- {% for cat in categories %}
+                    {% for info in infos %}
                     <tr>
-                        <td>{{cat.id}}</td>
-                        <td>{{cat.name}}</td>
-                        <td> <img src="{{cat.photo}}" alt="" width="25px" height="25px"> </td>
+                        <td>{{info.date.strftime("%d/%m/%Y -  %H:%M")}}</td>
+                        <td>{{info.id_request}}</td>
+                        <td>{{Request.query.filter_by(id_request=info.id_request).all()|length}}</td>
+                        <td> R$ {{r.replace_dot(query_sum(info.id_request))}}</td>
                     </tr>
-                    {% endfor %} -->
+                    {% endfor %}
                 </tbody>
             </table>
             </div>

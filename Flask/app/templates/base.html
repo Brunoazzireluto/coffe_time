@@ -19,8 +19,10 @@
     {% block header %}
         <header>
             <nav class="navbar">
-                <div class="logo">
+                <a class="logo-link" href="{{url_for('main.index')}}">
+                <div class="logo">         
                 </div>
+                </a>
                 <ul class="list">
                     <li class="list-items">
                         <a href="{{url_for('main.new_request', random=randint(0,10000))}}">Novo Pedido <span class="material-icons">add_circle</span></a>

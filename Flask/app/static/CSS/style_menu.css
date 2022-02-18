@@ -21,11 +21,11 @@
 
 .div-itens{
     text-align: center;
-    font-weight: bold;
-    background-color: red;
+    background-color: var(--primary);
     width: 50%;
     height: 50%;
     border-radius: 100%;
+    font-family: var(--text);
 }
 
 .div-categorie{

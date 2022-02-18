@@ -59,6 +59,7 @@
   outline: none;
   background: transparent;
   resize: none;
+  font-family: var(--text);
 }
 
 .form-box .input-box select {

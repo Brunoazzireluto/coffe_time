@@ -39,17 +39,22 @@ table{
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     background-color: var(--primary);
-    /* background-color: rgba(238, 78, 57); */
 }
 .tbl-content{
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    /* background-color: var(--secondary); */
     background-color: rgba(230, 223, 223, 0.719);
     height:300px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(14, 8, 8, 0.50);
+}
+
+.tbl-content .price{
+    font-family: var(--text);
+    position: absolute;
+    bottom: 24%;
+    left: 46%;
 }
 
 th{

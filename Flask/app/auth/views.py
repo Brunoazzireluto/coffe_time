@@ -65,7 +65,7 @@ def new_user():
 @login_required
 def users():
     users = Users.query.all()
-    return render_template('auth/consult_users.html', users=users)
+    return render_template('auth/consult_users.html', users=users, randint=randint)
 
 @auth.route('/delete_user/<int:id>')
 @login_required

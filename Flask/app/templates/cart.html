@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style_table.css') }}">
 {% endblock %}
 
-
 {% block body %}
 <section>
     <h2 class="title">Pedido N {{id}}</h2>
@@ -26,12 +25,9 @@
     </div>
     <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
-        <tbody id="table_body">
-            {% set prices = [] %}
+        <tbody id="table_body"> 
             {% for request in requests %}
                 {% set plate = Plate.query.filter_by(id=request.id_plate).first()  %}
-                {% set final_price = plate.price*request.quantity %}
-                {{prices.append(final_price)}}
             <tr>
                 <td>{{plate.name}}</td>
                 <td>{{request.observations}}</td>
@@ -48,11 +44,12 @@
                 </td>
             </tr>
             {% endfor %}
+            <p class="price">Valor Total: R$ {{r.replace_dot(final_price)}}</p>
         </tbody>
     </table>
     </div>
 </section>
-<p>RS {{r.replace_dot(sum(prices))}}</p>
+
 <div class="button-div">
     <a href="{{url_for('main.index')}}">
         <button>

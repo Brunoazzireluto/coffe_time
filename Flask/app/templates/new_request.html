@@ -13,13 +13,13 @@
             <span class="material-icons">shopping_cart</span>
             <div class="div-itens">
                 {% set itens = Request.query.filter_by(id_request=random).all() %}
-                <sup>{{itens|length}}</sup>
+                {{itens|length}}
             </div>
         </a>
 {% for categorie in categories %}
     <div class="div-categorie">
         <div class="div-logo">
-            <img src="{{categorie.photo}}"  width="75%" height="75%" alt="">
+            <img src="{{categorie.photo}}"  width="60%" height="60%" alt="">
         </div>
         <div class="div-title">{{categorie.name}}</div>
     </div>
@@ -38,13 +38,7 @@
                         {{ form.csrf_token }}
                             <div class="div2"> {{form.observations (placeholder='Informações Adicionais')}}</div>
                             <div class="div3"> 
-                                <!-- <div class="down" onclick="Donw()" >
-                                    <span class="material-icons">remove</span>
-                                </div> -->
                                 {{form.quantity(value=1, type='number')}}
-                                <!-- <div onclick="Up()"" >
-                                    <span class="material-icons">add</span>
-                                </div> -->
                             </div>
                             <div class="div4">
                                 <a>

@@ -8,13 +8,23 @@ from random import randint
 from app import db
 from ..OCI.regex import Regex
 import pytz
+from sqlalchemy.sql import functions
 
 sp = pytz.timezone('America/Sao_Paulo')
+
+def query_sum(request):
+    requests = Request.query.filter_by(id_request=request).all()    
+    values = []
+    for request in requests:
+        values.append(request.value)
+    return sum(values)
 
 @main.route('/home')
 @login_required
 def index():
-    return render_template('index.html', randint=randint)
+    r= Regex()
+    infos = RequestInfo.query.order_by(RequestInfo.date.desc()).limit(10)
+    return render_template('index.html', randint=randint, infos=infos, Request=Request, query_sum=query_sum,r=r)
 
 
 @main.route('/novo_pedido/<int:random>')
@@ -44,7 +54,11 @@ def add_to_cart(plate_id, random):
 def cart(id):
     r = Regex()
     requests = Request.query.filter_by(id_request=id).all()
-    return render_template('cart.html', requests=requests, id=id, Plate=Plate, randint=randint, sum=sum, r=r)
+    prices = []
+    for request in requests:
+        prices.append(request.value)
+    final_price = sum(prices)
+    return render_template('cart.html', requests=requests, id=id, Plate=Plate, randint=randint, sum=sum, r=r, final_price=final_price)
 
 
 @main.route('/delete_item/<int:id_plate>/<int:id_request>')

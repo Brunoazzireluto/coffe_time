@@ -34,7 +34,7 @@
                 <td><img src="{{plate.photo}}" width="75px" height="75px"></td>
                 <td>{{plate.name}}</td>
                 <td> {{plate.description}}</td>
-                <td>{{plate.price}}</td>
+                <td>R$ {{r.replace_dot(plate.price)}}</td>
                 <td class="center-button" >
                     <div class="div-button" >
                         <a href="{{url_for('items.edit_plate', id=plate.id)}}" id="aprove" title="Editar">

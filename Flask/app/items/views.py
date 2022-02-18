@@ -7,6 +7,7 @@ from app.models.models import Categorie, Plate
 from app import db, photos
 from . import items
 from ..OCI.oci import UploadOci
+from ..OCI.regex import Regex
 from random import randint
 
 
@@ -27,8 +28,9 @@ def new_plate():
 @items.route('/consultar_pratos')
 @login_required
 def consult_plates():
+    r = Regex()
     plates = Plate.query.order_by(Plate.id_categorie).all()
-    return render_template('items/consult_plates.html', plates=plates, Categorie=Categorie, randint=randint)
+    return render_template('items/consult_plates.html', plates=plates, Categorie=Categorie, randint=randint, r=r)
 
 
 @items.route('/edit_plate/<int:id>', methods=['GET', 'POST'])
