@@ -6,6 +6,7 @@ from wtforms.validators import InputRequired, Optional
 
 
 class RequestForm(FlaskForm):
+    """Form para Adicionar a quantidade e observações de cada item"""
     observations = TextAreaField('Informações Adicionais', validators=[Optional()])
     quantity = IntegerField(validators=[InputRequired()])
 

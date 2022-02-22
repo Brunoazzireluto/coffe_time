@@ -13,6 +13,15 @@ from sqlalchemy.sql import functions
 sp = pytz.timezone('America/Sao_Paulo')
 
 def query_sum(request):
+    """
+    Função que Retorna um valor float que é a soma do preço de todos os valores de um pedido
+    
+        Faz a Query com base em um id e retorna todos os items que batem com este id
+         requests = [request1, request2, request3]
+        Em seguida se cria uma lista vazia, cria um for para ser ser feito o loop por cada item da requests 
+        e adiciona eles na lista vazia values. por fim retorna a soma dos valores na lista.
+
+    """
     requests = Request.query.filter_by(id_request=request).all()    
     values = []
     for request in requests:
@@ -22,6 +31,7 @@ def query_sum(request):
 @main.route('/home')
 @login_required
 def index():
+    """Página index que contem informações dos ultimos pedidos feitos e terminados """
     r= Regex()
     infos = RequestInfo.query.order_by(RequestInfo.date.desc()).limit(10)
     return render_template('index.html', randint=randint, infos=infos, Request=Request, query_sum=query_sum,r=r)
@@ -30,6 +40,7 @@ def index():
 @main.route('/novo_pedido/<int:random>')
 @login_required
 def new_request(random):
+    """Página que carrega as categorias e mostra os itens do menu."""
     r= Regex()
     form= RequestForm()
     categories = Categorie.query.all()
@@ -39,6 +50,7 @@ def new_request(random):
 @main.route('/add_to_cart/<int:plate_id>/<int:random>', methods=['GET', 'POST'])
 @login_required
 def add_to_cart(plate_id, random):
+    """Função para Adicionar os itens no banco de dados dos pedidos, adiciona um item por vez"""
     form=RequestForm()
     plate=Plate.query.filter_by(id=plate_id).first()
     if form.validate_on_submit():
@@ -52,6 +64,7 @@ def add_to_cart(plate_id, random):
 @main.route('/Pedido_N<int:id>')
 @login_required
 def cart(id):
+    """Rota de carregamento dos itens adicionados no pedido"""
     r = Regex()
     requests = Request.query.filter_by(id_request=id).all()
     prices = []
@@ -64,6 +77,7 @@ def cart(id):
 @main.route('/delete_item/<int:id_plate>/<int:id_request>')
 @login_required
 def delete_item(id_plate,id_request):
+    """Rota de exclusão de item do banco de dados """
     item = Request.query.filter_by(id_request=id_request).filter_by(id_plate=id_plate).first()
     db.session.delete(item)
     db.session.commit()
@@ -73,7 +87,8 @@ def delete_item(id_plate,id_request):
 @main.route('/fechar_pedido/<int:id_request>')
 @login_required
 def close_request(id_request):
-    date = datetime.today().astimezone()
+    """Rota para fechar pedido e adicionar informação no banco de dados"""
+    date = datetime.today().astimezone() #Puxa a Data atual com base na timezone da Maquina
     infos = RequestInfo(id_request=id_request, date=date)
     db.session.add(infos)
     db.session.commit()

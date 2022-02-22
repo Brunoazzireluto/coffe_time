@@ -17,17 +17,18 @@ photos = UploadSet('photos', IMAGES)
 
 
 def create_app(config_name):
-    app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
-    configure_uploads(app, (photos))
+    """Criando Aplicação com modelo factory e carregando as blueprints"""
+    app = Flask(__name__) #Intanciando o app
+    app.config.from_object(config[config_name])#Carregando configuração
+    config[config_name].init_app(app) #iniciando app conforme a configuração
+    configure_uploads(app, (photos))#Configurando uploads para a aplicação
 
-    db.init_app(app)
-    login_manager.init_app(app)
-    babel.init_app(app)
-    qr.init_app(app)
+    db.init_app(app) #iniciando Banco de dados
+    login_manager.init_app(app) #iniciando o Flask-login
+    babel.init_app(app) # Iniciando o Babel
+    qr.init_app(app) # Inicando a Geração de QR code
 
-
+    # Carregando as Blueprints
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
