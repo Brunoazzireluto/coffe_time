@@ -11,7 +11,7 @@ const config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 };
   
-const baseURL = 'http://127.0.0.1:5000/api/'
+const baseURL = 'http://www.n2coffeapi.tk/api/'
 
 export default function Cart() {
     const [isModalVisible, setIsModalVisible] = useState(false);  

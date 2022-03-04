@@ -18,5 +18,5 @@ class PlateForm(FlaskForm):
     get_label='name', validators=[InputRequired()])
     name = StringField('Nome do Prato', validators=[InputRequired(), Length(1, 40)])
     description = TextAreaField('Descrição', validators=[InputRequired()])
-    price = FloatField('Preço', validators=[InputRequired()])
+    price = StringField('Preço', validators=[InputRequired()])
     photo = FileField('Enviar Foto', validators=[DataRequired()])

@@ -1,10 +1,11 @@
 from datetime import datetime
+import re
 from flask import render_template, redirect, url_for, flash, request
 from .  import main
 from flask_login import login_required
 from ..models.models import Categorie, Plate, Request, RequestInfo
 from .forms import RequestForm
-from random import randint
+from random import randint, random
 from app import db
 from ..OCI.regex import Regex
 import pytz
@@ -43,6 +44,11 @@ def new_request(random):
     """Página que carrega as categorias e mostra os itens do menu."""
     r= Regex()
     form= RequestForm()
+    verify_request = RequestInfo.query.filter_by(id_request=random).filter_by(status='Entregue').first()
+    if verify_request:
+        new_id=random+randint(1,10000)
+        print('redirecionando para: {}'.format(new_id))
+        return redirect(url_for('main.new_request', random=new_id))
     categories = Categorie.query.all()
     return render_template('new_request.html', form=form, categories=categories, Plate=Plate, r=r, randint=randint, random=random, Request=Request)
 
@@ -59,6 +65,7 @@ def add_to_cart(plate_id, random):
         db.session.commit()
         flash('Pedido adicionado ao carrinho')
     return redirect(url_for('main.new_request', random=random))
+
 
 
 @main.route('/Pedido_N<int:id>')
@@ -88,12 +95,18 @@ def delete_item(id_plate,id_request):
 @login_required
 def close_request(id_request):
     """Rota para fechar pedido e adicionar informação no banco de dados"""
-    date = datetime.today().astimezone() #Puxa a Data atual com base na timezone da Maquina
-    infos = RequestInfo(id_request=id_request, date=date)
-    db.session.add(infos)
-    db.session.commit()
-    flash('Pedido Fechado')
-    return redirect(url_for('main.load'))
+    date = datetime.now(tz=sp) #Puxa a Data atual com base na timezone de são paulo
+    requests = Request.query.filter_by(id_request=id_request).all()
+    if requests:
+        infos = RequestInfo(id_request=id_request, date=date)
+        db.session.add(infos)
+        db.session.commit()
+        flash('Pedido Fechado')
+        return redirect(url_for('main.load'))
+    else:
+        flash('Pedido Vazio, Redirecionando para o menu')
+        return redirect(url_for('main.new_request', random=id_request))
+
 
 @main.route('/loading')
 @login_required

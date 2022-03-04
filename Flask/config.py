@@ -23,10 +23,10 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/test'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'mysql://Azzi:Bu.62991881@localhost/tests'
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'Caminho/Banco/produção'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql://azzireluto:Maeda.123@10.0.1.254/coffe_aldo'
 
 config = {
     'development' : DevelopmentConfig,

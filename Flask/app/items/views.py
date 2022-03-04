@@ -22,7 +22,9 @@ def new_plate():
         #chama o método para fazer o upload da imagem
         photo = arq.upload_image()
         #Adiciona os dados na varivale para fazer o upload no banco de dados
-        plate = Plate(name=form.name.data, description=form.description.data, price=form.price.data, photo=photo, categorie_id=form.categorie.data)
+        r = Regex()
+        price = r.replace_comma(form.price.data)
+        plate = Plate(name=form.name.data, description=form.description.data, price=price, photo=photo, categorie_id=form.categorie.data)
         db.session.add(plate)
         db.session.commit()
         flash('Prato adicionado com Sucesso')

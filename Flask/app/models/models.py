@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import unique
 from sqlalchemy import true
 from sqlalchemy.orm import backref
@@ -62,7 +63,7 @@ class Request(db.Model):
     observations = db.Column(db.Text, nullable=True)
     quantity =  db.Column(db.Integer, nullable=False)
     value = db.Column(db.Float, nullable=False)
-    #status = db.Column(db.String(12), nullable=False, default='Aguardando') # Outras opções Preparando - pronto - Entregue
+    
     
 class RequestInfo(db.Model):
     """
@@ -72,6 +73,8 @@ class RequestInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     id_request = db.Column(db.Integer, unique=true)
     date = db.Column(db.DateTime)
+    status = db.Column(db.String(12), nullable=True, default='Aguardando') # Outras opções -Preparando - pronto - Entregue
+    name = db.Column(db.String(50), nullable=True , default=id_request)
    
 
 
