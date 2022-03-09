@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import or_
 import re
 from flask import render_template, redirect, url_for, flash, request
 from .  import main
@@ -34,9 +35,25 @@ def query_sum(request):
 def index():
     """Página index que contem informações dos ultimos pedidos feitos e terminados """
     r= Regex()
-    infos = RequestInfo.query.order_by(RequestInfo.date.desc()).limit(10)
-    return render_template('index.html', randint=randint, infos=infos, Request=Request, query_sum=query_sum,r=r)
+    infos = RequestInfo.query.filter(or_(RequestInfo.status.like('Aguardando'), RequestInfo.status.like('Preparando')))  \
+        .order_by(RequestInfo.date.desc()).all()
+    ready_orders = RequestInfo.query.filter(RequestInfo.status.like('pronto'))\
+        .order_by(RequestInfo.date.desc()).all()
+    return render_template('index.html', randint=randint, infos=infos, Request=Request, query_sum=query_sum,r=r, ready_orders=ready_orders)
 
+@main.route('/pedido-entregue/<int:id>')
+@login_required
+def deliver_order(id):
+    info = RequestInfo.query.filter_by(id_request=id).first()
+    info.status = 'Entregue'
+    db.session.commit()
+    flash('Pedido entregue')
+    return redirect(url_for('main.index'))
+
+@main.route('/pedidos-em-preparo')
+@login_required
+def preparation():
+    pass #Verificar como será feito a questão da cozinha com o aldo
 
 @main.route('/novo_pedido/<int:random>')
 @login_required
@@ -90,6 +107,8 @@ def delete_item(id_plate,id_request):
     db.session.commit()
     flash('Item Removido')
     return redirect(url_for('main.cart', id=id_request))
+
+
 
 @main.route('/fechar_pedido/<int:id_request>')
 @login_required
