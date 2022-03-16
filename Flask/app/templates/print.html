@@ -14,11 +14,9 @@
         <thead>
         <tr>
             
-            <th>Prato</th>
-            <th>Observações</th>
+            <th>item</th>
+            <th>Detalhes</th>
             <th>Quantidade</th>
-            <th>Valor Total</th>
-            <th>Remover Item</th>
         </tr>
         </thead>
     </table>
@@ -30,40 +28,23 @@
                 {% set plate = Plate.query.filter_by(id=request.id_plate).first()  %}
             <tr>
                 <td>{{plate.name}}</td>
-                <td>{{request.observations}}</td>
+                <td>{{plate.description}}</td>
                 <td> {{request.quantity}} </td>
-                <td>R$ {{r.replace_dot(request.value)}}</td>
-                <td class="center-button" >
-                    <div class="div-button" >
-                        <a href="{{url_for('main.delete_item', id_request=id, id_plate=plate.id)}}" id="aprove" title="Remover">
-                            <div class="div-danger" >
-                                <span class="material-icons">delete</span>
-                            </div>
-                        </a>
-                    </div>
-                </td>
             </tr>
             {% endfor %}
-            <p class="price">Valor Total: R$ {{r.replace_dot(final_price)}}</p>
         </tbody>
     </table>
     </div>
 </section>
-
 <div class="button-div">
     <a href="{{url_for('main.index')}}">
         <button>
             Voltar
         </button>
     </a>
-    <a href="{{url_for('main.new_request', random=id)}}">
+    <a href="#">
         <button>
-            Editar Pedido
-        </button>
-    </a>
-    <a href="{{url_for('main.order_printing', id=id)}}">
-        <button>
-            Fechar Pedido
+            concluir Pedido
         </button>
     </a>
 </div>

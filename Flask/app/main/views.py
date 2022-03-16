@@ -1,3 +1,4 @@
+from crypt import methods
 from datetime import datetime
 from operator import or_
 import re
@@ -121,10 +122,19 @@ def close_request(id_request):
         db.session.add(infos)
         db.session.commit()
         flash('Pedido Fechado')
-        return redirect(url_for('main.load'))
+        return redirect(url_for('main.order_printing', id=id_request))
     else:
         flash('Pedido Vazio, Redirecionando para o menu')
         return redirect(url_for('main.new_request', random=id_request))
+
+
+@main.route('/imprimir_pedido/<int:id>', methods=['GET'])
+@login_required
+def order_printing(id):
+    """Rota para Mostrar todo os detalhes do pedido e imprimir ele"""
+    requests = Request.query.filter_by(id_request=id).all()
+    return render_template('print.html', randint=randint, requests=requests, id=id, Plate=Plate)
+
 
 
 @main.route('/loading')
