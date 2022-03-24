@@ -1,6 +1,6 @@
-import os 
-import string
+import os
 import random
+import string
 
 random_str = string.ascii_letters + string.digits + string.ascii_uppercase
 key = ''.join(random.choice(random_str) for i in range(12))
@@ -18,6 +18,7 @@ class Config:
     def init_app(app):
         pass
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://user:password@host/schema-desenvolvimento'
@@ -27,13 +28,15 @@ class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'mysql://user:password@host/schema-teste'
 
+
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql://user:password@host/schema-produção'
 
-config = {
-    'development' : DevelopmentConfig,
-    'testing': TestingConfig,
-    'Production' : ProductionConfig,
 
-    'default' : DevelopmentConfig
+config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'Production': ProductionConfig,
+
+    'default': DevelopmentConfig
 }
